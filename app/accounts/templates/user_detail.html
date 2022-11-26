@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
-{% load django_bootstrap5 %}
 
+{% block title %} Profile {% endblock %}
 
 {% block content %}
     <br>
+    <h3>User's personal page </h3>
+      <br>
     <div class="container">
         {% for image in images%}
             <div class="row justify-content-md-center">
@@ -17,11 +19,12 @@
                             <p class="card-text">{{ image.text }}</p>
                             <p class="card-text">{{ image.created_at }}</p>
                         </div>
-                        <a class="btn btn-secondary" href="{% url 'update' image.pk %}">Add to favorites</a>
+
 
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+
 {% endblock %}

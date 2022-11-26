@@ -1,6 +1,7 @@
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login, get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 
 from accounts.forms import LoginForm, CustomUserCreationForm
 
@@ -51,3 +52,14 @@ class RegisterView(CreateView):
         context = {}
         context['form'] = form
         return self.render_to_response(context)
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'
+
+    def get_context_data(self, **kwargs):
+        images = self.object.favorites.all()
+        kwargs['images'] = images
+        return super().get_context_data(**kwargs)

@@ -23,7 +23,7 @@
                     <i class="bi bi-person-fill"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                   <li><a class="dropdown-item" href="#">Profile</a></li>
+                   <li><a class="dropdown-item" href="{% url 'profile' user.pk %}">Profile</a></li>
                    <li><a class="dropdown-item" href="{% url 'image_create' %}">Add image</a></li>
                    <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
                 </ul>

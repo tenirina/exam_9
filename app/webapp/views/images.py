@@ -1,8 +1,10 @@
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-
+from rest_framework.viewsets import ModelViewSet
 
 from webapp.forms import ImageForm
 from webapp.models import Image
@@ -33,6 +35,13 @@ class UpdateImageView(LoginRequiredMixin, UpdateView):
     model = Image
     context_object_name = 'image'
 
+    def post(self, request, *args, **kwargs):
+        img = Image.objects.get(pk=kwargs['pk'])
+        if request.user == img.author or request.user.has_perm('webapp.change_image'):
+            return super().post(request, *args, **kwargs)
+        else:
+            return reverse('index')
+
     def get_success_url(self):
         return reverse('image', kwargs={'pk': self.object.pk})
 
@@ -48,3 +57,6 @@ class DeleteImageView(LoginRequiredMixin, DeleteView):
             return super().post(request, *args, **kwargs)
         else:
             return reverse('index')
+
+
+

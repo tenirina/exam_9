@@ -9,7 +9,7 @@ class Image(models.Model):
                                on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name='Date of creation', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Date of change', auto_now=True)
-    favorites = models.ManyToManyField(to=get_user_model(), related_name='users', blank=True)
+    users = models.ManyToManyField(to=get_user_model(), related_name='favorites', blank=True)
 
     def __str__(self):
         return f'{self.author} : {self.text[:30]}'
