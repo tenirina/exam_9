@@ -17,14 +17,11 @@
                     {% endfor %}
                     <a class="btn btn-secondary" href="{% url 'update' image.pk %}">Update</a>
                     <a class="btn btn-secondary" href="{% url 'delete' image.pk %}">Delete</a>
-                    <br>
-                    <div class="but">
-                         {% if user.is_authenticated %}
-                            <a class="btn btn-outline-secondary favorite-btn {{image.id}} {% if not user in image.users.all %} like {% else %} dislike {% endif %}" data-image-id={{image.id}} href="{% url 'favorite' image.pk %}">
-                                {% if not user in image.users.all %} Add to favorites {% else %} Delete from favorite {% endif %}
-                            </a>
-                        {% endif %}
-                    </div>
+                     {% if user.is_authenticated %}
+                        <a class="btn btn-outline-secondary favorite-btn {{image.id}} {% if not user in image.users.all %} like {% else %} dislike {% endif %}" data-image-id={{image.id}} href="{% url 'favorite' image.pk %}">
+                            {% if not user in image.users.all %} Add to favorites {% else %} Delete from favorite {% endif %}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
