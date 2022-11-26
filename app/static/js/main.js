@@ -20,18 +20,20 @@ $(document).ready(function(){
 
     $('.favorite-btn').click(function(event){
         event.preventDefault();
+        let input = $(this).find('favorite-btn');
+        input.attr('disabled', true);
         const imageId = $(this).data('image-id');
         let data = document.getElementsByClassName(imageId)[0];
         if (data.classList.contains('like')) {
             data.classList.remove('like');
             data.classList.add('dislike');
-            data.value='Add to favorite'
+            this.textContent = 'Delete to favorite'
             url = urlBase + `api/image/${imageId}/favorite/`;
             method = 'POST'
         } else {
             data.classList.remove('dislike')
             data.classList.add('like')
-            data.value='Delete to favorite'
+            this.textContent = 'Add to favorite'
             url = urlBase + `api/image/${imageId}/not-favorite/`;
             method = 'DELETE'
         }
@@ -40,11 +42,14 @@ $(document).ready(function(){
             method: method,
             headers: {'X-CSRFToken': getCookie('csrftoken')},
             success: function(response){
-
+                input = $(this).find('favorite-btn');
+                input.attr('disabled', false);
             },
             error: function(response){
                 console.log(response)
                 console.log('error')
+                input = $(this).find('favorite-btn');
+                input.attr('disabled', false);
             }
         })
     })

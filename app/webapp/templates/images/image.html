@@ -11,17 +11,20 @@
                     <h4 class="card-text">Author <a href="#"> {{ image.author }}</a></h4>
                     <p class="card-text">{{ image.text }}</p>
                     {% for user in  image.users.all %}
-                        <a href="{% url 'profile' user.pk %}">{{user.username}}</a>
+                        <p><a href="{% url 'profile' user.pk %}">{{user.username}}</a></p>
                     {% empty %}
                         <p>No favorites yet.</p>
                     {% endfor %}
                     <a class="btn btn-secondary" href="{% url 'update' image.pk %}">Update</a>
                     <a class="btn btn-secondary" href="{% url 'delete' image.pk %}">Delete</a>
-                     {% if user.is_authenticated %}
-                        <a class="btn btn-outline-secondary favorite-btn {{image.id}} {% if not user in image.users.all %} like {% else %} dislike {% endif %}" data-image-id={{image.id}} href="{% url 'favorite' image.pk %}">
-                            {% if not user in image.users.all %} Add to favorites {% else %} Delete to favorite {% endif %}
-                        </a>
-                    {% endif %}
+                    <br>
+                    <div class="but">
+                         {% if user.is_authenticated %}
+                            <a class="btn btn-outline-secondary favorite-btn {{image.id}} {% if not user in image.users.all %} like {% else %} dislike {% endif %}" data-image-id={{image.id}} href="{% url 'favorite' image.pk %}">
+                                {% if not user in image.users.all %} Add to favorites {% else %} Delete from favorite {% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

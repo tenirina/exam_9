@@ -3,8 +3,6 @@ from django.views import View
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
-from rest_framework.viewsets import ModelViewSet
 
 from webapp.forms import ImageForm
 from webapp.models import Image

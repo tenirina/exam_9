@@ -60,6 +60,6 @@ class ProfileView(LoginRequiredMixin, DetailView):
     context_object_name = 'user_obj'
 
     def get_context_data(self, **kwargs):
-        images = self.object.favorites.all()
+        images = self.object.favorites.all().order_by('-updated_at')
         kwargs['images'] = images
         return super().get_context_data(**kwargs)
