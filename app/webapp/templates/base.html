@@ -31,7 +31,7 @@
             {% block menu %}{% endblock %}
         {% else %}
             <spam class="navbar-nav"><a class="nav-link" href="{% url 'login' %}">Sign in</a></spam>
-            <spam class="navbar-nav"><a class="nav-link " href="#">Register</a></spam>
+            <spam class="navbar-nav"><a class="nav-link " href="{% url 'register' %}">Register</a></spam>
         {% endif %}
     </div>
 </nav>
