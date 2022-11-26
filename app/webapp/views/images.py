@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse, reverse_lazy
@@ -59,4 +59,13 @@ class DeleteImageView(LoginRequiredMixin, DeleteView):
             return reverse('index')
 
 
+class FavoriteView(View):
 
+    def get(self, request, *args, **kwargs):
+        image = get_object_or_404(Image, pk=kwargs.get('pk'))
+        user = request.user
+        if not user.favorites.filter(users=user).exists():
+            user.favorites.add(image)
+        elif user.favorites.filter(username=user):
+            user.favorites.remove(image)
+        return redirect('index')

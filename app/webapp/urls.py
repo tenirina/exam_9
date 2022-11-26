@@ -1,7 +1,7 @@
 from django.urls import path
 
 from webapp.views.base import IndexView
-from webapp.views.images import CreateImageView, ImageView, DeleteImageView, UpdateImageView
+from webapp.views.images import CreateImageView, ImageView, DeleteImageView, UpdateImageView, FavoriteView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('update/<int:pk>', UpdateImageView.as_view(), name='update'),
     path('delete/<int:pk>', DeleteImageView.as_view(), name='delete'),
     path('confirm-delete/<int:pk>', DeleteImageView.as_view(), name='confirm_delete'),
+    path('favorite/<int:pk>', FavoriteView.as_view(), name='favorite')
 ]

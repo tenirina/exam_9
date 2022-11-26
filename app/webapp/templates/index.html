@@ -8,17 +8,18 @@
         {% for image in images%}
             <div class="row justify-content-md-center">
                 <div class="col-8">
-                    <div class="card mb-3">
-
+                     <div class="card w-85">
                         <a href="{% url 'image' image.pk %}"><img class="card-img-top" src="{{ image.image.url }}" alt="post picture"></a>
-                        <p class="card-text"><small class="text-muted">{{ image.author }}</small></p>
-
                         <div class="card-body">
+                            <p class="card-text">Author {{ image.author }}</p>
                             <p class="card-text">{{ image.text }}</p>
                             <p class="card-text">{{ image.created_at }}</p>
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-outline-secondary favorite-btn {{image.id}} {% if not user in image.users.all %} like {% else %} dislike {% endif %}" data-image-id={{image.id}} href="{% url 'favorite' image.pk %}">
+                                    {% if not user in image.users.all %} Add to favorites {% else %} Delete to favorite {% endif %}
+                                </a>
+                            {% endif %}
                         </div>
-                        <a class="btn btn-secondary" href="{% url 'update' image.pk %}">Add to favorites</a>
-
                     </div>
                 </div>
             </div>
