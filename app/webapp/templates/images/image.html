@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-8">
+            <div class="card mb-3">
+                <br>
+                <img class="card-img-top" src="{{ image.image.url }}" alt="image">
+                <p class="card-text"><small class="text-muted"><a href="#">{{ image.author }}</a></small></p>
+                <div class="card-body">
+                    <p class="card-text">{{ image.text }}</p>
+                    {% for user in  image.favorites.all %}
+                        <a href="">{{user.username}}</a>
+                    {% empty %}
+                        <p>No favorites yet.</p>
+                    {% endfor %}
+                </div>
+                 <a href="{% url 'update' image.pk %}">Update</a>
+                 <a href="{% url 'delete' image.pk %}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

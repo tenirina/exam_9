@@ -17,22 +17,22 @@
  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">Gallery</a>
-
+        {% if user.is_authenticated %}
             <div class="dropdown navbar-nav">
                 <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-fill"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                   <li><a class="dropdown-item" href="{% url 'image_create' %}">Add image</a></li>
                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                   <li><a class="dropdown-item" href="#">Sign out</a></li>
+                   <li><a class="dropdown-item" href="{% url 'image_create' %}">Add image</a></li>
+                   <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
                 </ul>
             </div>
             {% block menu %}{% endblock %}
-
-            <spam class="navbar-nav"><a class="nav-link " href="#">Sign in</a></spam>
+        {% else %}
+            <spam class="navbar-nav"><a class="nav-link" href="{% url 'login' %}">Sign in</a></spam>
             <spam class="navbar-nav"><a class="nav-link " href="#">Register</a></spam>
-
+        {% endif %}
     </div>
 </nav>
 <div class="container">
